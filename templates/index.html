@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Ecológica 🌱</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Calculadora de Carbono</h1>
+        <p class="subtitulo">Descubra o impacto das suas ações no planeta</p>
+    </header>
+
+    <section class="sobre">
+        <div class="texto">
+            <h2>POR QUE USAR NOSSA CALCULADORA?</h2>
+            <p>
+                Nossas ações diárias têm um impacto direto no planeta. Coisas simples, como usar o carro para pequenos trajetos, deixar aparelhos ligados sem necessidade ou o tempo que passamos conectados, aumentam a emissão de gases do efeito estufa.
+            </p>
+
+            <p>
+                A Calculadora de Carbono foi desenvolvida para mostrar de forma fácil e clara como cada escolha influencia o meio ambiente. Com base em informações sobre energia, transporte e resíduos, ela calcula a quantidade de CO₂ liberada e indica seu nível de impacto ambiental.
+            </p>
+
+            <p>
+                Além de medir suas emissões, a ferramenta também oferece sugestões para equilibrar e reduzir esses impactos. Pequenas mudanças, como economizar energia, utilizar transporte coletivo e apoiar projetos sustentáveis, podem fazer uma grande diferença.
+            </p>
+
+            <p class="cta">Transforme consciência em ação — veja como suas atitudes podem ajudar o planeta a respirar melhor.</p>
+
+            <a href="#calculadora" class="botao">Começar Agora</a>
+        </div>
+
+        <div class="imagem">
+            <img src="{{ url_for('static', filename='planeta.png') }}" alt="Planeta sustentável">
+        </div>
+    </section>
+
+    <!-- Calculadora Flask/Python -->
+    <section class="calculadora" id="calculadora">
+        <div class="style_calculadora">
+            <h2>Calculadora de Carbono</h2>
+            <form method="POST" action="/resultado">
+                <!-- Energia -->
+                <h3>⚡ ENERGIA ELÉTRICA</h3>
+                <label>Consumo mensal de energia (kWh):</label>
+                <input type="number" name="kwh" step="0.01" required>
+                <small>OBS: Se não souber, considere que uma casa média consome entre 150 e 300 kWh/mês.</small>
+                
+                <label>Possui ar-condicionado?</label>
+                <select name="tem_ar">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+                
+                <label>Horas de uso do ar-condicionado:</label>
+                <input type="number" name="horas_ar" step="0.1" value="0">
+
+                <label>Usa chuveiro elétrico?</label>
+                <select name="tem_chuveiro">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+
+                <label>Minutos por dia de uso do chuveiro:</label>
+                <input type="number" name="minutos_chuveiro" step="1" value="0">
+                
+                <!-- Resíduos e Reciclagem -->
+                <h3>♻️ RESÍDUOS E RECICLAGEM</h3>
+                <label>Você separa o lixo reciclável?</label>
+                <select name="recicla">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+
+                <label>Se sim, quantos % do seu lixo é reciclado?</label>
+                <input type="number" name="percentual_recicla" step="1" value="0">
+                <small>Exemplo: 50 significa metade do lixo é reciclado.</small>
+
+                <label>Quantos sacos de lixo sua casa gera por semana?</label>
+                <input type="number" name="sacos_lixo" step="1" value="0" required>
+                <small>OBS: Uma família média gera entre 3 e 5 sacos de 30L por semana.</small>
+
+                <!-- Tecnologia -->
+                <h3>💻 TECNOLOGIA</h3>
+                <label>Possui computador?</label>
+                <select name="usa_pc">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+
+                <label>Horas por dia de uso do computador:</label>
+                <input type="number" name="horas_pc" step="0.1" value="0">
+
+                <label>Usa smartphone?</label>
+                <select name="usa_cel">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+
+                <label>Horas por dia de uso do smartphone:</label>
+                <input type="number" name="horas_cel" step="0.1" value="0">
+
+                <label>Tem internet em casa?</label>
+                <select name="usa_internet">
+                    <option value="n">Não</option>
+                    <option value="s">Sim</option>
+                </select>
+
+                <label>Horas por dia de uso da internet:</label>
+                <input type="number" name="horas_net" step="0.1" value="0">
+
+                <button type="submit">Calcular</button>
+            </form>
+
+            {% if total is defined and nivel is defined %}
+                <div class="resultado">
+                    <p>Emissão total estimada: <strong>{{ total|round(3) }} tCO₂/mês</strong></p>
+                    <p>Nível de impacto: <strong>{{ nivel }}</strong></p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 - Projeto Sustentável 🌿</p>
+    </footer>
+</body>
+</html>

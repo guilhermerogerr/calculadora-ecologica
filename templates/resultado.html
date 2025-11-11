@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado - Calculadora Ecológica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="pagina-resultado">
+
+    <section class="tela-resultado">
+        <div class="texto-resultado">
+            <h1>
+                VOCÊ ESTÁ NO NÍVEL: 
+                <span class="{{ nivel|lower|replace(' ', '_') }}">{{ nivel }}</span>
+            </h1>
+            <p>Sua emissão total é de <strong>{{ total|round(2) }} kg de CO₂/mês</strong>.</p>
+
+            <!-- 🔽 Botão de voltar dentro da tela-resultado -->
+            <a href="{{ url_for('index') }}" class="botao-voltar">⬅ Voltar à tela inicial</a>
+        </div>
+
+        <div class="mascote">
+            <img src="{{ url_for('static', filename='mascote.png') }}" alt="Mascote Ecológico">
+        </div>
+    </section>
+
+    <section class="caixa">
+        <button onclick="document.getElementById('descricao').classList.toggle('visivel')">
+            Ver descrição dos níveis
+        </button>
+
+        <div id="descricao" class="descricao">
+            <h3>Descrição dos níveis</h3>
+            <ul>
+                <li>
+                    <span class="ecologico">Ecológico:</span> 
+                    Emissões muito baixas. Você tem hábitos sustentáveis e contribui ativamente para um planeta mais limpo.
+                </li>
+                <li>
+                    <span class="moderado">Moderado:</span> 
+                    Seu impacto é razoável, mas há espaço para pequenas melhorias no consumo e descarte.
+                </li>
+                <li>
+                    <span class="poluidor">Poluidor:</span> 
+                    Suas emissões estão altas. Tente reduzir o desperdício de energia e o uso excessivo de eletrônicos.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</body>
+</html>
